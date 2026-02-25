@@ -14,7 +14,21 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://dealflow-demo.vercel.app'
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            return callback(new Error('CORS not allowed'), false);
+        }
+        return callback(null, true);
+    },
+    credentials: true
+}));
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(fileUpload());
