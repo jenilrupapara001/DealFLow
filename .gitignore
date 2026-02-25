@@ -1,0 +1,34 @@
+# Credentials & Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+
+# Dependencies
+node_modules/
+/client/node_modules
+/server/node_modules
+
+# Build & Distribution
+/client/dist
+/client/build
+/server/dist
+
+# IDE & System Files
+.vscode/
+.idea/
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Misc
+.cache/
+.npm/
