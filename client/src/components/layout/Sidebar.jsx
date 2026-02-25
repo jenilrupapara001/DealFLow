@@ -6,7 +6,7 @@ const Sidebar = ({ isOpen, toggle }) => {
     const location = useLocation();
 
     const menuItems = [
-        { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
+        { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
         { name: 'Leads', icon: Users, path: '/leads' },
         { name: 'Pipeline', icon: PieChart, path: '/pipeline' },
         { name: 'Email Campaigns', icon: Mail, path: '/campaigns' },
@@ -16,12 +16,12 @@ const Sidebar = ({ isOpen, toggle }) => {
 
     return (
         <aside className={`${isOpen ? 'w-64' : 'w-20'} h-full bg-white border-r border-slate-200 transition-all duration-300 flex flex-col`}>
-            <div className="h-16 flex items-center px-6 border-b border-slate-100">
+            <Link to="/dashboard" className="h-16 flex items-center px-6 border-b border-slate-100 hover:bg-slate-50 transition-colors">
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                     <span className="text-white font-bold">D</span>
                 </div>
                 {isOpen && <span className="ml-3 font-bold text-xl text-primary">DealFlow</span>}
-            </div>
+            </Link>
 
             <nav className="flex-1 py-6 px-4 space-y-2">
                 {menuItems.map((item) => {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Layout,
@@ -27,6 +28,7 @@ import {
 
 const LandingPage = () => {
     const navigate = useNavigate();
+    const { user } = useAuth();
     const [scrolled, setScrolled] = useState(false);
     const [activeTab, setActiveTab] = useState(0);
 
@@ -132,7 +134,7 @@ const LandingPage = () => {
                 className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-slate-200 py-4 shadow-sm' : 'bg-transparent py-8'}`}
             >
                 <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-                    <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => navigate('/')}>
+                    <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => navigate(user ? '/dashboard' : '/')}>
                         <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-xl shadow-primary/30 group-hover:rotate-6 transition-transform">
                             <Layout size={24} />
                         </div>
@@ -148,8 +150,14 @@ const LandingPage = () => {
                     </div>
 
                     <div className="flex items-center space-x-6">
-                        <Link to="/login" className="hidden sm:block text-sm font-black text-slate-700 hover:text-primary uppercase tracking-widest transition-colors">Log In</Link>
-                        <Link to="/contact" className="btn-primary px-8 py-3 text-sm font-black shadow-2xl shadow-primary/20 hover:scale-105 transition-transform">Contact Us</Link>
+                        {user ? (
+                            <Link to="/dashboard" className="btn-primary px-8 py-3 text-sm font-black shadow-2xl shadow-primary/20 hover:scale-105 transition-transform">Dashboard</Link>
+                        ) : (
+                            <>
+                                <Link to="/login" className="hidden sm:block text-sm font-black text-slate-700 hover:text-primary uppercase tracking-widest transition-colors">Log In</Link>
+                                <Link to="/login" className="btn-primary px-8 py-3 text-sm font-black shadow-2xl shadow-primary/20 hover:scale-105 transition-transform">Get Started</Link>
+                            </>
+                        )}
                     </div>
                 </div>
             </motion.nav>
@@ -195,7 +203,7 @@ const LandingPage = () => {
                                 transition={{ duration: 0.8, delay: 0.6 }}
                                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-16"
                             >
-                                <button onClick={() => navigate('/login')} className="btn-primary w-full sm:w-auto px-12 py-6 text-xl font-black group shadow-3xl shadow-primary/30">
+                                <button onClick={() => navigate(user ? '/dashboard' : '/login')} className="btn-primary w-full sm:w-auto px-12 py-6 text-xl font-black group shadow-3xl shadow-primary/30">
                                     <span>Enter the Dashboard</span>
                                     <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={24} />
                                 </button>
